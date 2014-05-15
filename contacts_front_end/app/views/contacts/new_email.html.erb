@@ -1,1 +1,31 @@
-TODO - add a form here for creating an email
+<!-- TODO - add a form here for creating an email -->
+
+<h3>Email <%= @contact.name %> at <%= @contact.email %></h3>
+
+<%= form_for :email, url: email_contacts_path(@contact.id), method: "post" do |f| %>
+<div>
+<%= f.label :subject %>
+<%= f.text_field :subject, placeholder: "subject" %>
+</div>
+<div>
+<%= f.label :body %>
+<%= f.text_area :body, placeholder: "body" %>
+</div>
+<%= f.hidden_field :email, value: @contact.email %>
+
+<%= f.submit :Send %>
+<%end%>
+
+
+<!-- <div>
+<%#= form_for :email, url: email_contacts_path(@contact.id), method: "post" do |f| %>
+<%#= f.label :subject %>
+<%#= f.text_field :subject, placeholder: "subject" %>
+</div>
+<div>
+  <%#= f.label :body %>
+<%#= f.text_area :body, placeholder: "write email here" %>
+</div>
+
+<%#= f.submit :Send %> 
+<%# end %>  -->

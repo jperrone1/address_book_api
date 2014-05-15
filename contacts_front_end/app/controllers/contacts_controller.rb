@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_action :load_contact, only: [:show, :edit, :update, :destroy]
+  before_action :load_contact, only: [:show, :edit, :update, :destroy, :new_email, :send_email, :sent_email]
 
   def index
     @contacts = current_user.contacts
@@ -43,11 +43,16 @@ class ContactsController < ApplicationController
 
   def new_email
     # Should return a view that allows the user to create an email
+
   end
 
   def send_email
     # Does the actual sending of the email by calling
     # the other rails server
+ 
+    params[:email][:email]=@contact.email
+    Typhoeus.post("localhost:3001/email.json", params: {email: params[:email]})
+    redirect_to email_sent_path(@contact)
   end
 
   def sent_email
